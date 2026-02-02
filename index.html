@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Wil je mijn Valentijn zijn? 💘</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; margin:0; background:#fff0f6; }
+    .wrap { min-height: 100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+    .card {
+      width: min(520px, 100%); background: white; border-radius: 24px; padding: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.12); text-align:center;
+    }
+    img {   width: 100%;
+  height: auto;
+  border-radius: 18px;
+  max-height: 340px;
+  object-fit: contain;
+  background: #f3f3f3;}
+    h1 { margin: 16px 0 8px; font-size: 28px; }
+    p { margin: 0 0 16px; font-size: 16px; opacity: .85; }
+    .btns { position: relative; height: 90px; display:flex; gap:14px; justify-content:center; align-items:center; }
+    button {
+      border: 0; padding: 14px 18px; border-radius: 999px; font-size: 16px; cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,.12);
+    }
+    #yes { background:#ff3b7a; color:white; }
+    #no  { background:#f1f3f5; color:#222; position:absolute; }
+    .note { margin-top: 14px; font-size: 13px; opacity: .7; }
+    .success { display:none; margin-top: 14px; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <!-- Zet je foto in dezelfde map en noem hem "ons.jpg", of pas de bestandsnaam aan -->
+      <img src="ons.jpg" alt="Onze foto" />
+
+      <h1>Wil je mijn Valentijn zijn neidse? 💘</h1>
+      <p>Wil neidse mijn liefste valentijn zijn en gezel cinema en snackjes?</p>
+
+      <div class="btns">
+        <button id="yes">JA! 🥰</button>
+        <button id="no">Nee</button>
+      </div>
+
+      <div class="success" id="success">
+        Yesss! (BETER) 💖 Ik heb er al super veel zin in 😍<br/>
+        <small>Stuur op snap als je "ja" hebt gezegd</small>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const success = document.getElementById("success");
+
+    function moveNoButton() {
+      const parent = noBtn.parentElement;
+      const rect = parent.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = rect.width - btnRect.width;
+      const maxY = rect.height - btnRect.height;
+
+      const x = Math.max(0, Math.random() * maxX);
+      const y = Math.max(0, Math.random() * maxY);
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+    }
+
+    // Startpositie
+    moveNoButton();
+
+    // Als ze probeert te klikken/hoveren/touchen: knop springt weg
+    ["mouseover","mousedown","touchstart","pointerdown"].forEach(evt =>
+      noBtn.addEventListener(evt, (e) => { e.preventDefault(); moveNoButton(); }, {passive:false})
+    );
+
+    // Als ze “JA” klikt
+    yesBtn.addEventListener("click", () => {
+      success.style.display = "block";
+      yesBtn.disabled = true;
+      yesBtn.textContent = "😍😍😍";
+    });
+  </script>
+</body>
+</html>
